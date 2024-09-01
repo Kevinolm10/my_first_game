@@ -23,14 +23,19 @@ class Boundary {
     }
 }
 const boundaries = []
+const offset = {
+    x: -200,
+    y: -200
+}
 
 collissionsMap.forEach((row, i) => {
     row.forEach((symbol, j) => {
+        if (symbol === 2395)
         boundaries.push(
         new Boundary({
             position: {
-              x: j * Boundary.width,
-              y: i * Boundary.height
+              x: j * Boundary.width + offset.x,
+              y: i * Boundary.height + offset.y
             }
         })
         )
@@ -55,10 +60,12 @@ class Sprite {
     }
 }
 
+
+
 const background = new Sprite({
     position: {
-        x: -200,
-        y: -200
+        x: offset.x,
+        y: offset.y
     },
     image: image
 });
@@ -111,6 +118,10 @@ function animate() {
 
     // Draw the background
     background.draw();
+
+    boundaries.forEach(boundary => {
+        boundary.draw()
+    })
 
     boundaries.forEach(boundary => {
         boundary.draw()
